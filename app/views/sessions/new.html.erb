@@ -1,0 +1,7 @@
+<h1>User Login</h1>
+
+<%= form_with(url: user_login_path) do |f| %>
+  <%= f.text_field :email %>
+  <%= f.text_field :password %>
+  <%= f.submit 'Login' %>
+<% end %>
