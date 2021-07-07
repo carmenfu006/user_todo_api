@@ -1,0 +1,9 @@
+<h1>Task edit page</h1>
+
+<h5>Title: <%= @task['title'] %></h5>
+<h5>Status: <%= task_status(@task['completed']) %></h5>
+
+<%= form_with(url: task_path(@task['id']), method: :patch) do |f|%>
+  <%= f.text_field :title, value: "#{@task['title']}" %>
+  <%= f.submit 'Update'%>
+<% end %>

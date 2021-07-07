@@ -2,4 +2,19 @@
 
 <h1>Email: <%= @user['email'] %></h1>
 
-<%= @user %>
+<br>
+
+<h1>Add new task</h1>
+
+<%= form_with(url: tasks_path) do |f| %>
+  <%= f.text_field :title %>
+  <%= f.submit 'Add' %>
+<% end %>
+
+<h1>Tasks</h1>
+<% @tasks.each do |task| %>
+  <%= link_to edit_task_path(task['id']) do %>
+    <%= task['title'] %> - <%= task_status(task['completed']) %>
+  <% end %>
+  <br>
+<% end %>
