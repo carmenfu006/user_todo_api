@@ -5,8 +5,9 @@ class Api::V1::AuthenticationController < Api::V1::ApplicationController
     @user = User.find_by_email(params[:user][:email])
     if @user&.valid_password?(params[:user][:password])
       id = @user.id
-      token = JsonWebTokenService.encode(user_id: @user.id)
-      time = Time.now + 24.hours.to_i
+      time = Time.now + 24.hours
+      # time = Time.now + 2.minutes.to_i
+      token = JsonWebTokenService.encode(user_id: @user.id, exp: time.to_i)
       render json: { id: id, token: token, exp: time.strftime("%m-%d-%Y %H:%M") }, status: :ok
     else
       render json: { error: 'unauthorized' }, status: :unauthorized
