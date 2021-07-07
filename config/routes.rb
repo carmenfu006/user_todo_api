@@ -12,7 +12,10 @@ Rails.application.routes.draw do
   delete 'user/logout', to: 'sessions#destroy'
   # resources :sessions
   resources :profiles
-  resources :tasks
+  resources :tasks do
+    patch '/status', to: 'tasks#status'
+  end
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   devise_for :users
 

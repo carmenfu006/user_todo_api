@@ -11,8 +11,12 @@
   <%= f.submit 'Add' %>
 <% end %>
 
-<h1>Tasks</h1>
+<h1>Tasks (<%= @tasks.count %>)</h1>
 <% @tasks.each do |task| %>
+  <br>
+  <%= link_to task_action(task['completed']), task_status_path(task['id'], completed: !task['completed']), method: :patch %>
+  <%= link_to 'Delete', task_path(task['id']), method: :delete, data: { confirm: 'Are you sure?' } %>
+  <br>
   <%= link_to edit_task_path(task['id']) do %>
     <%= task['title'] %> - <%= task_status(task['completed']) %>
   <% end %>
