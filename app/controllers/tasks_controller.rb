@@ -9,9 +9,9 @@ class TasksController < ApplicationController
         }.to_json, header
 
     if response.code == 201
-      redirect_to profile_path("#{session['user_id']}")
+      redirect_to profile_path("#{session['user_id']}"), notice: 'Task was successfully created.'
     else
-      redirect_to root_path
+      redirect_to profile_path("#{session['user_id']}"), alert: "There was an error. Please try again."
     end
   end
 
@@ -29,9 +29,9 @@ class TasksController < ApplicationController
     }.to_json, header
 
     if response.code == 200
-      redirect_to profile_path("#{session['user_id']}")
+      redirect_to profile_path("#{session['user_id']}"), notice: 'Task was successfully updated.'
     else
-      redirect_to root_path
+      redirect_to edit_task_path("#{params[:id]}"), alert: "There was an error. Please try again."
     end
   end
 
@@ -44,15 +44,15 @@ class TasksController < ApplicationController
     }.to_json, header
 
     if response.code == 200
-      redirect_to profile_path("#{session['user_id']}")
+      redirect_to profile_path("#{session['user_id']}"), notice: 'Status was successfully updated.'
     else
-      redirect_to root_path
+      redirect_to profile_path("#{session['user_id']}"), alert: "There was an error. Please try again."
     end
   end
 
   def destroy
     response = RestClient.delete "http://localhost:3000/api/v1/users/#{session['user_id']}/tasks/#{params[:id]}", header
-    redirect_to profile_path("#{session['user_id']}")
+    redirect_to profile_path("#{session['user_id']}"), notice: 'Task was successfully deleted.'
   end
 
   private

@@ -3,7 +3,8 @@
 <h5>Title: <%= @task['title'] %></h5>
 <h5>Status: <%= task_status(@task['completed']) %></h5>
 
-<%= form_with(url: task_path(@task['id']), method: :patch) do |f|%>
-  <%= f.text_field :title, value: "#{@task['title']}" %>
-  <%= f.submit 'Update'%>
+<%= form_with(url: task_path(@task['id']), data: { controller: 'validation' }, method: :patch) do |f| %>
+  <div data-validation-target='message'></div>
+  <%= f.text_field :title, value: "#{@task['title']}", data: { validation_target: 'field' } %>
+  <%= f.submit 'Update', data: { action: 'click->validation#submit'} %>
 <% end %>

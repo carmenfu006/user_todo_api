@@ -6,9 +6,10 @@
 
 <h1>Add new task</h1>
 
-<%= form_with(url: tasks_path) do |f| %>
-  <%= f.text_field :title %>
-  <%= f.submit 'Add' %>
+<%= form_with(url: tasks_path, data: { controller: 'validation' }) do |f| %>
+  <div data-validation-target='message'></div>
+  <%= f.text_field :title, data: { validation_target: 'field' } %>
+  <%= f.submit 'Add', data: { action: 'click->validation#submit'} %>
 <% end %>
 
 <h1>Tasks (<%= @tasks.count %>)</h1>
