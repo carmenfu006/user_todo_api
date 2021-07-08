@@ -9,7 +9,7 @@ class Api::V1::ApplicationController < ActionController::API
     header = header.split(' ').last if header
     begin
       @decoded = JsonWebTokenService.decode(header)
-      @current_user = User.find(@decoded[0]['user_id'].to_i)
+      @current_user = User.find_by_email(@decoded[0]['user_email'])
     rescue ActiveRecord::RecordNotFound => e
       render json: { errors: e.message }, status: :unauthorized
     rescue JWT::DecodeError => e
